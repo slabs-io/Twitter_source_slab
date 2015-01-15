@@ -1,7 +1,7 @@
 'use strict';
 
 var Q       = require('q');
-
+var http = require('http');
 /**
  * getLabel - passes in the config object from the client.
  * This function MUST exist and MUST return a string.
@@ -15,11 +15,11 @@ exports.getLabel = function(property, settings){
         searchTerm  = settings.searchTerm;
     }
 
-    if(property == 'mentions'){
+    if(property === 'mentions'){
         return 'tweets containing ' + searchTerm;
     }
 
-    return 'bad property name';
+    return property + ' : bad property name';
 
 };
 
@@ -43,7 +43,7 @@ exports.getData = function(settings) {
         searchTerm  = settings.searchTerm;
     }
 
-    var req = https.request({
+    var req = http.request({
         host:'labs.benbru.com',
         port:80,
         path: '/search_twitter',
@@ -67,13 +67,16 @@ exports.getData = function(settings) {
         });
 
         res.on('end', function(){
-            deferred.resolve(output);
+            var data = JSON.parse(output);
+            deferred.resolve({
+                mentions: data.count
+            });
         });
 
 
     });
 
-    req.end({keyword:searchTerm});
+    req.end(JSON.stringify({keyword:searchTerm}));
 
     // Always return your promise here.
     return deferred.promise;
