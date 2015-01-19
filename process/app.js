@@ -76,7 +76,7 @@ exports.getData = function(settings) {
 
     });
 
-    req.end(JSON.stringify({keyword:searchTerm}));
+    req.end(JSON.stringify({keyword:searchTerm, id:keyword.searchTerm}));
 
     // Always return your promise here.
     return deferred.promise;
