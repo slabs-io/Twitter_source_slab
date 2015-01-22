@@ -29,7 +29,7 @@ exports.getLabel = function(property, settings){
  * getData - passes in the config object from the client.
  * This function MUST exist and MUST return a promise.
  */
-exports.getData = function(settings) {
+exports.getData = function(settings, id) {
 
     // this is the object saved from your the /input portion of the slab.
     var searchTerm  = 'example';
@@ -76,7 +76,7 @@ exports.getData = function(settings) {
 
     });
 
-    req.end(JSON.stringify({keyword:searchTerm, id:searchTerm}));
+    req.end(JSON.stringify({keyword:searchTerm, id:id}));
 
     // Always return your promise here.
     return deferred.promise;
