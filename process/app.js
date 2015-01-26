@@ -18,7 +18,6 @@ exports.getLabel = function(property, settings){
     if(property === 'mentions'){
         return 'tweets containing ' + searchTerm;
     }
-
     return property + ' : bad property name';
 
 };
@@ -29,19 +28,17 @@ exports.getLabel = function(property, settings){
  * getData - passes in the config object from the client.
  * This function MUST exist and MUST return a promise.
  */
-exports.getData = function(settings, id) {
+exports.getData = function(settings, networkId) {
 
     // this is the object saved from your the /input portion of the slab.
     var searchTerm  = 'example';
     var deferred = Q.defer();
 
-    var data = {
-        mentions : 0
-    };
-
     if(settings && settings.searchTerm){
         searchTerm  = settings.searchTerm;
     }
+    
+    var id = networkId + searchTerm;
 
     var req = http.request({
         host:'labs.benbru.com',
@@ -55,6 +52,10 @@ exports.getData = function(settings, id) {
     }, function(res){
 
         var output = '';
+        var data = {
+            count : 0
+        };
+
         res.setEncoding('utf8');
         console.log(res.statusCode);
 
@@ -67,7 +68,7 @@ exports.getData = function(settings, id) {
         });
 
         res.on('end', function(){
-            var data = JSON.parse(output);
+            data = JSON.parse(output);
             deferred.resolve({
                 mentions: data.count
             });
