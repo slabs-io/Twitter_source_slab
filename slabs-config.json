@@ -1,6 +1,23 @@
 {
   "name" : "Tweet Counter",
+  "description" : "Starts tracking the number of mentions on twitter of a specific keyword",
   "type" : "source",
   "connectionsIn" : 1,
-  "connectionsOut" : 3
+  "connectionsOut" : 3,
+  "schema" : {
+    "type": "object",
+    "properties" : {
+      "searchTerm": {
+        "type": "string",
+        "description" : "The term you want to monitor on twitter",
+        "default": "slabs",
+        "minLength" : 2,
+        "title": "Search Term"
+      }
+    }
+  },
+  "source": {
+    "label": "Twitter",
+    "url": "http://www.twitter.com/"
+  }
 }
