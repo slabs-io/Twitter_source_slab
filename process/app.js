@@ -2,6 +2,8 @@
 
 var Q       = require('q');
 var http = require('http');
+
+var CLIENT_SECRET = process.env.TWITTER_BOT_SECRET;
 /**
  * getLabel - passes in the config object from the client.
  * This function MUST exist and MUST return a string.
@@ -41,12 +43,11 @@ exports.getData = function(settings, networkId) {
     var id = networkId + searchTerm;
 
     var req = http.request({
-        host:'labs.benbru.com',
-        port:80,
-        path: '/search_twitter',
+        host:'twitter.slabs.io',
+        path: '/check',
         method: 'POST',
         headers: {
-            'User-Agent': 'benbru.com twitter app',
+            'User-Agent': 'slabs.io twitter query',
             'Content-Type' : 'application/json'
         }
     }, function(res){
@@ -57,7 +58,6 @@ exports.getData = function(settings, networkId) {
         };
 
         res.setEncoding('utf8');
-        console.log(res.statusCode);
 
         res.on('data', function (chunk) {
             output += chunk;
@@ -77,7 +77,7 @@ exports.getData = function(settings, networkId) {
 
     });
 
-    req.end(JSON.stringify({keyword:searchTerm, id:id}));
+    req.end(JSON.stringify({query:searchTerm, id:id, clientSecret:CLIENT_SECRET}));
 
     // Always return your promise here.
     return deferred.promise;
