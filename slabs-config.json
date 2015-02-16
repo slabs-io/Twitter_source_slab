@@ -4,6 +4,7 @@
   "type" : "source",
   "connectionsIn" : 1,
   "connectionsOut" : 3,
+  "customIcon" : "fa-twitter",
   "schema" : {
     "type": "object",
     "properties" : {
@@ -12,7 +13,8 @@
         "description" : "The term you want to monitor on twitter",
         "default": "slabs",
         "minLength" : 2,
-        "title": "Search Term"
+        "title": "Search Term",
+        "brief": "Query"
       }
     }
   },
