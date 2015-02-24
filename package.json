@@ -9,6 +9,7 @@
     "type": "git",
     "url": "https://github.com/benbrunton/twitter_source_slab.git"
   },
+  "integration":"twitter",
   "author": "Ben Brunton",
   "license": "MIT",
   "dependencies": {
