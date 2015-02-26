@@ -18,6 +18,7 @@
       }
     }
   },
+  "integration":"twitter",
   "source": {
     "label": "Twitter",
     "url": "http://www.twitter.com/"
